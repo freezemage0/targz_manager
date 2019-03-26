@@ -1,5 +1,6 @@
 from entity import *
 from tools import *
+from event import *
 
 class Application:
     entitiesInitialized = False
@@ -22,7 +23,3 @@ class Application:
 
         except Exception as Error:
             exit(Error)
-
-if __name__ == '__main__':
-    object = Application()
-    object.run()
