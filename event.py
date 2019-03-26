@@ -21,7 +21,6 @@ class EventManager:
         return self.__registry[eventName]
 
     def executeHandler(self, handler, event):
-        eventParams = event.getEventParams()
         executionStatus = handler(event)
         return executionStatus
 
@@ -36,7 +35,10 @@ class EventManager:
                         handler.__name__, event.getEventName()
                     )
                 )
-
+    def registerEvent(self, event):
+        eventName = event.getEventName()
+        if eventName not in self.getEvents():
+            self.__registry[eventName] = []
 
 class Event:
     def __init__(self, params):
@@ -45,6 +47,7 @@ class Event:
 
     def send(self):
         eventManager = EventManager.getInstance()
+        eventManager.registerEvent(self)
         eventManager.receive(self)
 
     def getEventName(self):
