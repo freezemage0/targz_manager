@@ -1,25 +1,25 @@
 from entity import *
-from commands import *
 from tools import *
-from dummy import *
 
 class Application:
-    def __init__(self):
-        self.EntityManager = EntityManager.getInstance()
-        self.CommandManager = CommandManager.getInstance()
-        self.entitiesInitialized = False
+    entitiesInitialized = False
 
-    def run(self):
+    def initialize():
+        Application.EntityManager = EntityManager.getInstance()
+        Application.SettingsManager = SettingsManager.getInstance()
+        entities = Application.EntityManager.getAll()
+        for name in entities:
+            entityObject = Application.EntityManager.getEntity(name)
+            entityObject.initialize()
+        Application.entitiesInitialized = True
+
+    def run(main):
         try:
-            if self.entitiesInitialized == False:
-                entities = self.EntityManager.getAll()
-                for name in entities:
-                    entityObject = self.EntityManager.getEntity(name)
-                    entityObject.initialize()
-                self.entitiesInitialized = True
+            if Application.entitiesInitialized == False:
+                Application.initialize()
 
-            dummy = self.EntityManager.getEntity('DummyEntity')
-            print(dummy.getDummy())
+            main()
+
         except Exception as Error:
             exit(Error)
 
