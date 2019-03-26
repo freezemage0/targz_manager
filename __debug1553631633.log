@@ -1,0 +1,11 @@
+<2019-03-27 00:20:33.394832> ["Application" (DEBUG)]: Initialized EntityManager
+<2019-03-27 00:20:33.395116> ["EntityManager" (DEBUG)]: Started registerEntity method for Entity "DummyEntity"
+<2019-03-27 00:20:33.395134> ["EntityManager" (DEBUG)]: Fetching list of registered Entities
+<2019-03-27 00:20:33.395153> ["EntityManager" (DEBUG)]: Successfully registered Entity "DummyEntity"
+<2019-03-27 00:20:33.395327> ["EntityManager" (DEBUG)]: Fetching list of registered Entities
+<2019-03-27 00:20:33.395349> ["EntityManager" (DEBUG)]: Started Fetching Entity by name "DummyEntity"
+<2019-03-27 00:20:33.395360> ["EntityManager" (DEBUG)]: Fetching list of registered Entities
+<2019-03-27 00:20:33.395374> ["EntityManager" (DEBUG)]: Successfully Fetched Entity "DummyEntity"
+<2019-03-27 00:20:33.395389> ["EntityManager" (DEBUG)]: Started Fetching Entity by name "DummyEntity"
+<2019-03-27 00:20:33.395400> ["EntityManager" (DEBUG)]: Fetching list of registered Entities
+<2019-03-27 00:20:33.395413> ["EntityManager" (DEBUG)]: Successfully Fetched Entity "DummyEntity"
