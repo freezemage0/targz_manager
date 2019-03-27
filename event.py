@@ -22,13 +22,15 @@ class EventManager:
 
     def executeHandler(self, handler, event):
         executionStatus = handler(event)
+		if executionStatus is not False:
+			executionStatus = True
         return executionStatus
 
     def receive(self, event):
         eventName = event.getName()
         handlers = self.getHandlers(eventName)
         for handler in handlers:
-            if self.executeHandler(handler, event) == False:
+            if self.executeHandler(handler, event) is False:
                 #@TODO: implement EventHandlerException
                 raise Exception(
                     'Event Handler Error in handler "{}", event "{}"'.format(

@@ -3,23 +3,26 @@ from tools import *
 from event import *
 
 class Application:
-    entitiesInitialized = False
+    initialized = False
 
     def initialize():
-        Application.EntityManager = EntityManager.getInstance()
-        Application.SettingsManager = SettingsManager.getInstance()
-        entities = Application.EntityManager.getAll()
-        for name in entities:
-            entityObject = Application.EntityManager.getEntity(name)
-            entityObject.initialize()
-        Application.entitiesInitialized = True
+		if Application.initialized == False:
+		    Application.EntityManager = EntityManager.getInstance()
+		    Application.SettingsManager = SettingsManager.getInstance()
+		    entities = Application.EntityManager.getAll()
+		    for name in entities:
+		        entityObject = Application.EntityManager.getEntity(name)
+		        entityObject.initialize()
+		    Application.initialized = True
 
     def run(main):
         try:
-            if Application.entitiesInitialized == False:
-                Application.initialize()
-
+			#OnBeforeAppInit
+            Application.initialize()
+			#OnAfterAppInit
+			#OnBeforeMainLogic
             main()
-
+			#OnAfterMainLogic
         except Exception as Error:
+			#OnApplicationException
             exit(Error)
