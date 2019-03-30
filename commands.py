@@ -1,4 +1,5 @@
 from entity import *
+from event import *
 import sys
 
 class CommandEntity(Entity):
@@ -47,7 +48,6 @@ class CommandEntity(Entity):
 	def getComplexCommands(self):
 		project = self.getCommandAliases('project')
 		module = self.getCommandAliases('module')
-		indexes = []
 		for argumentIndex, argumentValue in enumerate(self.rawArguments):
 			try:
 				if argumentValue in project:
@@ -57,12 +57,11 @@ class CommandEntity(Entity):
 			except IndexError:
 				continue
 
-	def getArgs(self):
+	def getArguments(self):
 		if self.isPrepared == False:
 			self.prepareArguments()
 		return self.arguments
 
-if __name__ == '__main__':
-	commandObj = CommandEntity()
-	commandObj.initialize()
-	print(commandObj.getArgs())
+manager = EntityManager.getInstance()
+manager.registerEntity(CommandEntity())
+
