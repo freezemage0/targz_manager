@@ -24,22 +24,21 @@ class TarEntity(Entity):
 		isModuleInFolder = self.moduleName in os.listdir(path)
 		return isModuleInFolder	
 		
-	def backup(self): 
-		filename = self.getPath() + self.moduleName + '.tar.gz'
+	def backup(self):
+		os.chdir(self.getPath())
+		filename = self.moduleName + '.tar.gz'
 		timestamp = str(int(time.time()))
 		path = self.getPath()
-
-		if filename in os.listdir(path):
-			newFilename = '.{}_backup_{}.tar.gz'.format(
-				self.getPath() + self.moduleName, timestamp
+		if filename in os.listdir():
+			newFilename = '{}_backup_{}.tar.gz'.format(
+				self.moduleName, timestamp
 			)
 			os.rename(filename, newFilename)
-			filename = newFilename
 		self.makeTar(filename)
 
 	def makeTar(self, filename):
 		tar = tarfile.TarFile.open(filename, 'w:gz')
-		tar.add(self.getPath(), filter = self.tarFilter)
+		tar.add(self.moduleName, filter = self.tarFilter)
 		tar.close()
 
 	def getPath(self):
@@ -55,7 +54,6 @@ class TarEntity(Entity):
 			string = string.strip('/')
 			path = self.path.strip('/')
 			self.path = '/{}/{}/'.format(path, string)
-		print(self.path)
 	
 	def setSettings(self, settings):
 		try:
@@ -63,6 +61,7 @@ class TarEntity(Entity):
 			self.moduleFolder = settings['module_folder']
 			self.projectName = settings['project_name']
 			self.moduleName = settings['module_name']
+			self.fileMask = settings['file_mask'].split(',')
 		except KeyError as key:
 			raise Exception('Missing required parameter: {}'.format(key))
 
@@ -78,7 +77,13 @@ class TarEntity(Entity):
 		self.backup()
 		return True
 
-	def tarFilter(self, info): pass
+	def tarFilter(self, info):
+		mask = self.fileMask
+		mask.append('backup')
+		for f in mask:
+			if f in info.name:
+				return None
+		return info
 
 manager = EntityManager.getInstance()
 manager.registerEntity(TarEntity())
