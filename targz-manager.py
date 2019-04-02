@@ -6,11 +6,8 @@ def main():
 	"""
 	Getting required entities
 	"""
-	command = Application.EntityManager.getEntity('CommandEntity')
-	tar = Application.EntityManager.getEntity('TarEntity')
+	SettingsManager = Application.SettingsManager
 	
-	commandInfo = command.getArguments()
-	Application.SettingsManager.setVerbose(commandInfo['verbose'])
 	if commandInfo['help'] == True:
 		exit()
 	"""
